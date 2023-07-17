@@ -1,0 +1,66 @@
+<h1>Tarea angular</h1>
+<button mat-raised-button="primary" (click)="toggleMostrarLista()">
+  Mostrar/Ocultar Lista con Angular Material
+</button>
+<div *ngIf="!mostrarLista">
+  <h4>Lista con Angular Material</h4>
+  <mat-list>
+    <mat-list-item>
+      <span matListItemTitle>Nombre</span>
+      <span matListItemLine>
+        <ol>
+          <li *ngFor="let item of nombresYCostos">
+            {{ item.nombre }}
+          </li>
+        </ol>
+      </span>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle>Costo</span>
+      <span matListItemLine>
+        <ol>
+          <li *ngFor="let item of nombresYCostos">
+            {{ item.costo | currency }}
+          </li>
+        </ol>
+      </span>
+    </mat-list-item>
+  </mat-list>
+</div>
+<br />
+<hr />
+<button mat-raised-button="primary" (click)="mostrarLista2 = !mostrarLista2">
+  Mostrar/Ocultar Lista sin Angular Material
+</button>
+<div *ngIf="!mostrarLista2">
+  <h4>Lista sin Angular Material</h4>
+  <ul>
+    <li *ngFor="let item of nombresYCostos">
+      {{ item.nombre }} - {{ item.costo | currency }}
+    </li>
+  </ul>
+</div>
+<br />
+<hr />
+<button mat-raised-button color="primary" (click)="toggleMostrarTabla()">
+  Mostrar/Ocultar Tabla
+</button>
+<div *ngIf="!mostrarTabla" class="tablas">
+  <mat-table class="mat-elevation-z8" [dataSource]="nombresYCostos">
+    <!-- Definir las columnas de la tabla -->
+    <ng-container matColumnDef="nombre">
+      <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.nombre }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="costo">
+      <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+      <mat-cell *matCellDef="let item"> {{ item.costo | currency }} </mat-cell>
+    </ng-container>
+
+    <!-- Mostrar los datos en las celdas -->
+    <mat-header-row *matHeaderRowDef="['nombre', 'costo']"></mat-header-row>
+    <mat-row *matRowDef="let item; columns: ['nombre', 'costo']"></mat-row>
+  </mat-table>
+</div>
+
+<router-outlet></router-outlet>
